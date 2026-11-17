@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#211717">
+  <meta name="description" content="Концепт сайта фабрики «Шуйская гармонь». Каталог гармоней и баянов, примеры звучания и выбор отделки.">
+  <title>Шуйская гармонь · Гармони и баяны из Шуи</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="icon" href="assets/favicon.png">
+  <link rel="preload" href="assets/display-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <script src="app.js" defer></script>
+</head>
+<body id="top">
+  <a class="skip" href="#main">К содержанию</a>
+  <header class="header">
+    <div class="wrap header-inner">
+      <a class="brand" href="#top" aria-label="Шуйская гармонь, главная">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+        <span>Шуйская<br>гармонь</span>
+      </a>
+      <nav id="nav" aria-label="Основная навигация">
+        <a href="#catalog">Инструменты</a>
+        <a href="#selection">Звучание</a>
+        <a href="#workshop">О фабрике</a>
+        <a href="#contacts">Контакты</a>
+      </nav>
+      <a class="header-phone" href="tel:+74935142661">+7 (49351) 4-26-61</a>
+      <button class="menu" type="button" aria-label="Открыть меню" aria-controls="nav" aria-expanded="false"><span></span><span></span></button>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="hero" aria-labelledby="hero-title">
+      <img class="hero-photo" src="assets/hero.webp" alt="" width="1600" height="1067" fetchpriority="high">
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="eyebrow"><span class="short-line" aria-hidden="true"></span> Музыкальная фабрика · Шуя, с 1935 года</p>
+          <h1 id="hero-title">Звук<br><em>с характером.</em></h1>
+          <p class="hero-description">Гармони и баяны из Шуи. Серийные модели и инструменты по индивидуальному заказу.</p>
+          <div class="hero-actions">
+            <a class="button primary" href="#catalog">Выбрать инструмент <span aria-hidden="true">→</span></a>
+            <a class="button secondary" href="#sound"><span class="play-symbol" aria-hidden="true"></span> Послушать пример</a>
+          </div>
+        </div>
+        <small class="hero-caption">Иллюстрация для концепта</small>
+      </div>
+    </section>
+
+    <section class="wrap section catalog" id="catalog" aria-labelledby="catalog-title">
+      <div class="section-head">
+        <div><p class="eyebrow">Каталог</p><h2 id="catalog-title">Найдите <em>свой инструмент</em></h2></div>
+        <a class="line-link" href="https://accordions37.ru/products/">Полный каталог фабрики <span aria-hidden="true">→</span></a>
+      </div>
+      <div class="filter" role="group" aria-label="Тип инструмента">
+        <button type="button" data-filter="all" aria-pressed="true">Все инструменты</button>
+        <button type="button" data-filter="garmon" aria-pressed="false">Гармони</button>
+        <button type="button" data-filter="bayan" aria-pressed="false">Баяны</button>
+      </div>
+      <div id="product-grid" class="product-grid"></div>
+      <noscript><p>Для просмотра демо-каталога включите JavaScript. <a class="line-link" href="https://accordions37.ru/products/">Каталог фабрики</a></p></noscript>
+    </section>
+
+    <section class="selection" id="selection" aria-labelledby="selection-title">
+      <div class="wrap section">
+        <div class="section-head selection-head">
+          <div><p class="eyebrow">Карточка инструмента</p><h2 id="selection-title" tabindex="-1">Звучание <em>и отделка</em></h2></div>
+          <p>Откройте модель из каталога, чтобы посмотреть её характеристики и доступные в демо варианты корпуса.</p>
+        </div>
+        <div class="selector">
+          <figure class="selector-photo">
+            <img id="selection-photo" src="assets/bronze.webp" alt="Гармонь «Заказная», чёрная с бронзовой росписью" width="600" height="422" loading="lazy">
+          </figure>
+          <div class="selector-content">
+            <p class="product-type" id="selection-type">Заказная гармонь</p>
+            <h3 id="selection-name">«Заказная»</h3>
+            <p class="product-description" id="selection-description"></p>
+            <dl id="selection-specs" class="specs"></dl>
+            <fieldset class="finish">
+              <legend>Отделка <span id="finish-name"></span></legend>
+              <div class="finish-options" id="finish-options"></div>
+            </fieldset>
+            <div class="player" id="sound">
+              <div class="player-main">
+                <button id="play" class="play-button" type="button" aria-label="Воспроизвести пример звучания"><span class="play-symbol" aria-hidden="true"></span></button>
+                <div class="timeline">
+                  <p id="audio-title" class="audio-title">Пример звучания</p>
+                  <div id="waveform" class="waveform" aria-hidden="true"></div>
+                  <input id="audio-progress" type="range" value="0" min="0" max="100" step="0.1" aria-label="Позиция воспроизведения" disabled>
+                </div>
+                <span class="audio-time" id="audio-time" aria-hidden="true">0:00</span>
+              </div>
+              <audio id="audio" preload="none"></audio>
+              <p class="audio-note" id="audio-note">Синтезированный пример для демо.</p>
+              <p class="audio-error" id="audio-error" role="status" hidden>Не удалось загрузить аудио. Попробуйте ещё раз.</p>
+            </div>
+            <div class="selection-actions">
+              <button class="button primary" id="inquiry" type="button">Запросить изготовление <span aria-hidden="true">→</span></button>
+              <a class="line-link" id="official-model" href="https://accordions37.ru/products/10/item-98/">Карточка фабрики <span aria-hidden="true">→</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="workshop wrap section" id="workshop" aria-labelledby="workshop-title">
+      <div class="workshop-year" aria-hidden="true"><span>1935</span><span class="workshop-lines"></span></div>
+      <div class="workshop-copy">
+        <p class="eyebrow">О фабрике</p>
+        <h2 id="workshop-title">Сделано <em>в Шуе</em></h2>
+        <p>Фабрика выросла из шуйских гармонных мастерских. Сегодня здесь выпускают серийные гармони и баяны, а для заказных гармоней подбирают строй и оформление корпуса.</p>
+        <a class="line-link" href="https://accordions37.ru/">Сайт фабрики <span aria-hidden="true">→</span></a>
+      </div>
+    </section>
+
+    <section class="contacts" id="contacts" aria-labelledby="contacts-title">
+      <div class="wrap contact-inner">
+        <div><p class="eyebrow">Контакты</p><h2 id="contacts-title">Связаться <em>с фабрикой</em></h2></div>
+        <div class="contact-details">
+          <a class="contact-phone" href="tel:+74935142661">+7 (49351) 4-26-61</a>
+          <a href="mailto:shromka@mail.ru">shromka@mail.ru</a>
+        </div>
+        <div class="contact-address">
+          <p>Ивановская область, Шуя<br>ул. Вихрева, 77</p>
+          <a class="line-link" href="https://yandex.ru/maps/?text=Шуя%2C%20улица%20Вихрева%2C%2077" target="_blank" rel="noopener noreferrer">Построить маршрут <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap footer-inner">
+      <a class="brand" href="#top" aria-label="Шуйская гармонь, в начало">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span><span>Шуйская<br>гармонь</span>
+      </a>
+      <p>Демонстрационная версия сайта</p>
+      <a class="line-link" href="https://accordions37.ru/">Официальный сайт <span aria-hidden="true">→</span></a>
+    </div>
+  </footer>
+
+  <dialog class="dialog" id="inquiry-dialog" aria-labelledby="inquiry-title">
+    <button type="button" class="dialog-close" data-close aria-label="Закрыть окно">×</button>
+    <div id="inquiry-entry">
+      <h2 id="inquiry-title">Запрос <em>на изготовление</em></h2>
+      <p id="inquiry-model" class="inquiry-model"></p>
+      <form id="inquiry-form" method="dialog">
+        <label>Имя <input name="name" autocomplete="off" maxlength="80" required></label>
+        <label>Электронная почта <input name="email" type="email" autocomplete="off" maxlength="160" required></label>
+        <label>Пожелания <textarea name="comment" rows="3" maxlength="500" placeholder="Например, желаемая тональность"></textarea></label>
+        <p class="form-note">Демо-форма. Данные остаются в браузере и очищаются при закрытии.</p>
+        <button class="button primary" type="submit">Проверить заявку <span aria-hidden="true">→</span></button>
+      </form>
+    </div>
+    <div id="inquiry-confirm" hidden>
+      <h2 id="inquiry-confirm-title" tabindex="-1">Заявка заполнена</h2>
+      <p id="inquiry-result" class="inquiry-model"></p>
+      <p class="form-note">Проверка завершена. Заявка не отправлена.</p>
+      <button class="button primary" type="button" data-close>Готово</button>
+    </div>
+  </dialog>
+</body>
+</html>
